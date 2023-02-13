@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:petrol_bunk_maintainence/utils/theme/theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,9 +14,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Petrol Bunk Maintainence',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: DIAppTheme.lightTheme,
+      darkTheme: DIAppTheme.darkTheme,
+      themeMode: ThemeMode.system,
       home: const MyHomePage(),
     );
   }
@@ -27,10 +28,10 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Petrol Bunk Maintainence'),
-      ),
-      body: const Text('Petrol Bunk Maintainence')
-    );
+        backgroundColor: Theme.of(context).colorScheme.background,
+        appBar: AppBar(
+          title: const Text('Petrol Bunk Maintainence'),
+        ),
+        body: const Text('Petrol Bunk Maintainence'));
   }
 }
