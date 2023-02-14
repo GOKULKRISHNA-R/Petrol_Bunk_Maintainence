@@ -1,8 +1,17 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:petrol_bunk_maintainence/features/authentication/screens/login/login.dart';
+import 'package:petrol_bunk_maintainence/utils/theme/theme.dart';
 
-void main() {
+import 'home_page.dart';
+import 'login_widget.dart';
+
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
