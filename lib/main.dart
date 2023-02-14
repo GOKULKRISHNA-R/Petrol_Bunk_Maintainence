@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:petrol_bunk_maintainence/utils/theme/theme.dart';
 
 import 'home_page.dart';
 import 'login_widget.dart';
@@ -20,9 +21,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Petrol Bunk Maintainence',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: DIAppTheme.lightTheme,
+      darkTheme: DIAppTheme.darkTheme,
+      themeMode: ThemeMode.system,
       home: const MyHomePage(),
     );
   }
