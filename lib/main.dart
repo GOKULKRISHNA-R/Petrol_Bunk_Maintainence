@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'features/authentication/screens/login/login.dart';
+import 'home_page.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +33,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: StreamBuilder<User?>(
+      body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -39,7 +42,7 @@ class Home extends StatelessWidget {
             return LoginScreen();
         },
       ),
-    )
+    );
   }
 }
 
@@ -53,9 +56,11 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 10),()=>{Get.offAll(const Home())});
+    Future.delayed(
+        const Duration(seconds: 10), () => {Get.offAll(const Home())});
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,8 +71,6 @@ class _SplashScreenState extends State<SplashScreen> {
             child: Image.asset(
               "assets/home.gif",
               fit: BoxFit.cover,
-            )
-      )
-    );
+            )));
   }
 }

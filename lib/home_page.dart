@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const HomePage());
@@ -15,6 +16,9 @@ class HomePage extends StatelessWidget {
 
 class AppBarExample extends StatelessWidget {
   const AppBarExample({super.key});
+  Future<void> _signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +26,10 @@ class AppBarExample extends StatelessWidget {
       appBar: AppBar(
         title: const Text('AppBar Demo'),
       ),
-      body: const Center(
-        child: Text(
-          'This is the home page',
-          style: TextStyle(fontSize: 24),
+      body: Center(
+        child: TextButton(
+          onPressed: _signOut,
+          child: Text("Sign out"),
         ),
       ),
     );
