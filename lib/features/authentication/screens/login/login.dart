@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class Login_screen extends StatelessWidget {
-  const Login_screen({super.key});
-//042061
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
+    Future signIn() async {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+    }
+
     return Scaffold(
       backgroundColor: Color(0xFF003a68),
       body: SingleChildScrollView(
@@ -28,6 +38,7 @@ class Login_screen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextFormField(
+                      controller: emailController,
                       decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.person_outline_outlined,
@@ -45,6 +56,7 @@ class Login_screen extends StatelessWidget {
                       height: Get.height * 0.02,
                     ),
                     TextFormField(
+                      controller: passwordController,
                       decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.fingerprint,
@@ -83,7 +95,9 @@ class Login_screen extends StatelessWidget {
                       width: Get.width,
                       height: Get.height * 0.05,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          signIn();
+                        },
                         child: Text("Login",
                             style: TextStyle(
                                 color: Colors.greenAccent,
