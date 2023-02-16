@@ -2,9 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:petrol_bunk_maintainence/features/authentication/screens/homeScreen/home_page.dart';
 
 import 'features/authentication/screens/login/login.dart';
-import 'home_page.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
