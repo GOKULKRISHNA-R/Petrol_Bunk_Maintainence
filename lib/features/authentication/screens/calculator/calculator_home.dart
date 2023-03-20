@@ -6,6 +6,7 @@ class Calculator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController userInput = TextEditingController();
     return Scaffold(
       body: Container(
         padding: EdgeInsets.symmetric(vertical: Get.height * 0.06),
@@ -19,8 +20,18 @@ class Calculator extends StatelessWidget {
               "Calculator",
               style: TextStyle(fontSize: 45),
             ),
-            Text("Sp1:  --------"),
-            Text("Sp1:  --------"),
+            TextFormField(
+              controller: userInput,
+            ),
+            TextFormField(
+              controller: userInput,
+            ),
+            TextFormField(
+              controller: userInput,
+            ),
+            TextFormField(
+              controller: userInput,
+            ),
           ],
         ),
       ),
