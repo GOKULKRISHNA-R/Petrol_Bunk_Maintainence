@@ -2,9 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:petrol_bunk_maintainence/features/authentication/screens/homeScreen/home_page.dart';
-
-import 'features/authentication/screens/login/login.dart';
+import 'package:petrol_bunk_maintainence/controllers/fingerprint_controller.dart';
+import 'package:petrol_bunk_maintainence/controllers/splashscreen_controller.dart';
+import 'screens/authenticate/login/login.dart';
+import 'screens/home/home_page.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,20 +16,24 @@ Future main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // final FingerprintController fingerprintController = Get.put(FingerprintController());
+
   @override
   Widget build(BuildContext context) {
+
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Petrol Bunk Maintainence',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const SplashScreen());
+        home: SplashScreen());
   }
 }
 
 class Home extends StatelessWidget {
   const Home({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -37,40 +42,31 @@ class Home extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return HomePage();
-          } else
-            return LoginScreen();
+            return const HomePage();
+          } else {
+            return const LoginScreen();
+          }
         },
       ),
     );
   }
 }
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+class SplashScreen extends StatelessWidget {
+  SplashScreen({super.key});
 
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    Future.delayed(
-        const Duration(seconds: 10), () => {Get.offAll(const Home())});
-    super.initState();
-  }
+  final SplashScreenController screenController = Get.put(SplashScreenController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-            color: const Color(0XFF3A5181),
+            color: const Color(0XFF003a68),
             height: Get.height,
             width: Get.width,
             child: Image.asset(
-              "assets/home.gif",
-              fit: BoxFit.cover,
+              "assets/Dreamimbue.png",
+              fit: BoxFit.contain,
             )));
   }
 }

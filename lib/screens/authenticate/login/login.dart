@@ -17,7 +17,7 @@ class LoginScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: Color(0xFF003a68),
+      backgroundColor: const Color(0xFF003a68),
       body: SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.symmetric(
@@ -26,28 +26,30 @@ class LoginScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image(
-                image: AssetImage('assets/images/loginImg.jpg'),
+                image: const AssetImage('assets/logo.png'),
                 width: Get.width * 1,
                 height: Get.height * 0.4,
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
               ),
               Form(
                   child: Container(
                 padding: EdgeInsets.symmetric(vertical: Get.height * 0.02),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     TextFormField(
+                      style: const TextStyle(color: Colors.white),
                       controller: emailController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
+                        // focusColor: Colors.greenAccent,
                           prefixIcon: Icon(
                             Icons.person_outline_outlined,
                             color: Colors.greenAccent,
                           ),
                           labelText: "Email",
-                          labelStyle: TextStyle(color: Color(0xFF749776)),
+                          labelStyle: TextStyle(color: Colors.greenAccent),
                           hintText: "Email",
-                          hintStyle: TextStyle(color: Color(0xFF749776)),
+                          hintStyle: TextStyle(color:  Color(0xFF749776)),
                           border: OutlineInputBorder(
                             borderSide: BorderSide(color: Color(0xFF69F0AE)),
                           )),
@@ -56,14 +58,15 @@ class LoginScreen extends StatelessWidget {
                       height: Get.height * 0.02,
                     ),
                     TextFormField(
+                      style: const TextStyle(color: Colors.white),
                       controller: passwordController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                           prefixIcon: Icon(
                             Icons.fingerprint,
                             color: Colors.greenAccent,
                           ),
                           labelText: "Password",
-                          labelStyle: TextStyle(color: Color(0xFF749776)),
+                          labelStyle: TextStyle(color:Colors.greenAccent),
                           hintText: "Password",
                           hintStyle: TextStyle(color: Color(0xFF749776)),
                           border: OutlineInputBorder(),
@@ -82,7 +85,7 @@ class LoginScreen extends StatelessWidget {
                       alignment: Alignment.centerRight,
                       child: TextButton(
                         onPressed: () {},
-                        child: Text(
+                        child: const Text(
                           "Forget Password?",
                           style: TextStyle(color: Colors.greenAccent),
                         ),
@@ -92,20 +95,20 @@ class LoginScreen extends StatelessWidget {
                       height: Get.height * 0.01,
                     ),
                     SizedBox(
-                      width: Get.width,
+                      width: Get.width*0.8,
                       height: Get.height * 0.05,
                       child: ElevatedButton(
                         onPressed: () {
                           signIn();
                         },
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Color.fromARGB(87, 0, 30, 54))),
                         child: Text("Login",
                             style: TextStyle(
                                 color: Colors.greenAccent,
                                 fontWeight: FontWeight.w400,
                                 fontSize: Get.height * 0.03)),
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Color(0xFF00233F))),
                       ),
                     )
                   ],
