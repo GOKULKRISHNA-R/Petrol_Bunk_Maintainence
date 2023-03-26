@@ -103,7 +103,7 @@ class LoginScreen extends StatelessWidget {
                         },
                         style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all(Color.fromARGB(87, 0, 30, 54))),
+                                MaterialStateProperty.all(const Color.fromARGB(87, 0, 30, 54))),
                         child: Text("Login",
                             style: TextStyle(
                                 color: Colors.greenAccent,

@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:petrol_bunk_maintainence/controllers/fingerprint_controller.dart';
 import 'package:petrol_bunk_maintainence/controllers/splashscreen_controller.dart';
 import 'screens/authenticate/login/login.dart';
 import 'screens/home/home_page.dart';

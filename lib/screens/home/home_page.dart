@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'add_stock.dart';
 import 'calculator.dart';
 import 'stock.dart';
 
@@ -17,7 +18,7 @@ class HomePage extends StatelessWidget {
     PersistentTabController controller;
     controller = PersistentTabController(initialIndex: 0);
     List<Widget> buildScreens() {
-      return [const Calculator(),const Stock()];
+      return [const Calculator(), Stock(),const AddStock()];
     }
     List<PersistentBottomNavBarItem> navBarsItems() {
       return [
@@ -33,10 +34,15 @@ class HomePage extends StatelessWidget {
           activeColorPrimary: CupertinoColors.activeBlue,
           inactiveColorPrimary: CupertinoColors.systemGrey,
         ),
+        PersistentBottomNavBarItem(
+          icon: const Icon(CupertinoIcons.add_circled),
+          title: ("Add Stock"),
+          activeColorPrimary: CupertinoColors.activeBlue,
+          inactiveColorPrimary: CupertinoColors.systemGrey,
+        ),
       ];
     }
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       floatingActionButton: FloatingActionButton(onPressed: _signOut,child: const Icon(Icons.logout),),
       body: PersistentTabView(
         context,
