@@ -4,15 +4,8 @@
 <dict>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allow access to photo library</string>
-<<<<<<< Updated upstream
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Need to access camera in order to get image.</string>
-=======
-
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Need to access camera in order to get image.</string>
-
->>>>>>> Stashed changes
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
