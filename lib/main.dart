@@ -2,9 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+<<<<<<< Updated upstream
 import 'package:petrol_bunk_maintainence/controllers/splashscreen_controller.dart';
 import 'screens/authenticate/login/login.dart';
 import 'screens/home/home_page.dart';
+=======
+import 'package:petrol_bunk_maintainence/features/authentication/screens/homeScreen/home_page.dart';
+import 'features/authentication/screens/login/login.dart';
+>>>>>>> Stashed changes
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();

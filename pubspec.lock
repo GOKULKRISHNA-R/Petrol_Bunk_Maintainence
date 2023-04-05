@@ -252,10 +252,17 @@ packages:
     dependency: "direct main"
     description:
       name: image_cropper
+<<<<<<< Updated upstream
       sha256: e08311fcf0cdba367715a5036aec8d8e9b3ab84479909dc2156dd5bf872edefb
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
+=======
+      sha256: "85324928ee8a8be35a529446435ca53067865b9353c8681983472eeec66d780f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
+>>>>>>> Stashed changes
   image_cropper_for_web:
     dependency: transitive
     description:
@@ -276,18 +283,32 @@ packages:
     dependency: "direct main"
     description:
       name: image_picker
+<<<<<<< Updated upstream
       sha256: cb25f04595a88450970dbe727243ba8cd21b6f7e0d7d1fc5b789fc6f52e95494
       url: "https://pub.dev"
     source: hosted
     version: "0.8.7+1"
+=======
+      sha256: "64b21d9f0e065f9ab0e4dde458076226c97382cc0c6949144cb874c62bf8e9f8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.7"
+>>>>>>> Stashed changes
   image_picker_android:
     dependency: transitive
     description:
       name: image_picker_android
+<<<<<<< Updated upstream
       sha256: dfb5b0f28b8786fcc662b7ed42bfb4b82a6cbbd74da1958384b10d40bdf212a7
       url: "https://pub.dev"
     source: hosted
     version: "0.8.6+6"
+=======
+      sha256: b81db5f5ed8a69d54d5f0932c2af8120e8c0518a037d8beee494eec671da4d4c
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.6+5"
+>>>>>>> Stashed changes
   image_picker_for_web:
     dependency: transitive
     description:
@@ -300,10 +321,17 @@ packages:
     dependency: transitive
     description:
       name: image_picker_ios
+<<<<<<< Updated upstream
       sha256: d4cb8ab04f770dab9d04c7959e5f6d22e8c5280343d425f9344f93832cf58445
       url: "https://pub.dev"
     source: hosted
     version: "0.8.7+2"
+=======
+      sha256: "50e882fe0a06bf0c8f7f5bce78d30975f279213293afc9471dc35f05617c50ff"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.7+1"
+>>>>>>> Stashed changes
   image_picker_platform_interface:
     dependency: transitive
     description:
