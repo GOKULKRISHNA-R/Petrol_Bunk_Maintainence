@@ -40,8 +40,10 @@ class LoginScreen extends StatelessWidget {
                     TextFormField(
                       style: const TextStyle(color: Colors.white),
                       controller: emailController,
+                      enableSuggestions: false,
+                      autocorrect: false,
+                      keyboardType: TextInputType.emailAddress,
                       decoration: const InputDecoration(
-                        // focusColor: Colors.greenAccent,
                           prefixIcon: Icon(
                             Icons.person_outline_outlined,
                             color: Colors.greenAccent,
@@ -49,7 +51,7 @@ class LoginScreen extends StatelessWidget {
                           labelText: "Email",
                           labelStyle: TextStyle(color: Colors.greenAccent),
                           hintText: "Email",
-                          hintStyle: TextStyle(color:  Color(0xFF749776)),
+                          hintStyle: TextStyle(color: Color(0xFF749776)),
                           border: OutlineInputBorder(
                             borderSide: BorderSide(color: Color(0xFF69F0AE)),
                           )),
@@ -60,13 +62,16 @@ class LoginScreen extends StatelessWidget {
                     TextFormField(
                       style: const TextStyle(color: Colors.white),
                       controller: passwordController,
+                      obscureText: true,
+                      enableSuggestions: false,
+                      autocorrect: false,
                       decoration: const InputDecoration(
                           prefixIcon: Icon(
                             Icons.fingerprint,
                             color: Colors.greenAccent,
                           ),
                           labelText: "Password",
-                          labelStyle: TextStyle(color:Colors.greenAccent),
+                          labelStyle: TextStyle(color: Colors.greenAccent),
                           hintText: "Password",
                           hintStyle: TextStyle(color: Color(0xFF749776)),
                           border: OutlineInputBorder(),
@@ -95,15 +100,15 @@ class LoginScreen extends StatelessWidget {
                       height: Get.height * 0.01,
                     ),
                     SizedBox(
-                      width: Get.width*0.8,
+                      width: Get.width * 0.8,
                       height: Get.height * 0.05,
                       child: ElevatedButton(
                         onPressed: () {
                           signIn();
                         },
                         style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(const Color.fromARGB(87, 0, 30, 54))),
+                            backgroundColor: MaterialStateProperty.all(
+                                const Color.fromARGB(87, 0, 30, 54))),
                         child: Text("Login",
                             style: TextStyle(
                                 color: Colors.greenAccent,

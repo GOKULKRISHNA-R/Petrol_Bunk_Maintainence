@@ -8,7 +8,7 @@ import 'stock.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
-  
+
   Future<void> _signOut() async {
     await FirebaseAuth.instance.signOut();
   }
@@ -18,8 +18,9 @@ class HomePage extends StatelessWidget {
     PersistentTabController controller;
     controller = PersistentTabController(initialIndex: 0);
     List<Widget> buildScreens() {
-      return [const Calculator(), Stock(),const AddStock()];
+      return [Calculator(), Stock(), const AddStock()];
     }
+
     List<PersistentBottomNavBarItem> navBarsItems() {
       return [
         PersistentBottomNavBarItem(
@@ -42,21 +43,23 @@ class HomePage extends StatelessWidget {
         ),
       ];
     }
+
     return Scaffold(
-      floatingActionButton: FloatingActionButton(onPressed: _signOut,child: const Icon(Icons.logout),),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _signOut,
+        child: const Icon(Icons.logout),
+      ),
       body: PersistentTabView(
         context,
         controller: controller,
         screens: buildScreens(),
         items: navBarsItems(),
         confineInSafeArea: true,
-        backgroundColor: Colors.white, 
+        backgroundColor: Colors.white,
         handleAndroidBackButtonPress: true,
-        resizeToAvoidBottomInset:
-            true, 
+        resizeToAvoidBottomInset: true,
         stateManagement: true,
-        hideNavigationBarWhenKeyboardShows:
-            true, 
+        hideNavigationBarWhenKeyboardShows: true,
         decoration: NavBarDecoration(
           borderRadius: BorderRadius.circular(10.0),
           colorBehindNavBar: Colors.white,
@@ -72,8 +75,7 @@ class HomePage extends StatelessWidget {
           curve: Curves.ease,
           duration: Duration(milliseconds: 200),
         ),
-        navBarStyle:
-            NavBarStyle.style1, 
+        navBarStyle: NavBarStyle.style1,
       ),
     );
   }
