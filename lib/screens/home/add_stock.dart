@@ -12,8 +12,10 @@ class AddStock extends StatelessWidget {
     Map<int, Map<String, String>> mymap = {};
     mymap[0] = {"data": "Product Brand"};
     mymap[1] = {"data": "Count"};
+    mymap[2] = {"data": "Barcode Id"};
 
     final _formKey = GlobalKey<FormState>();
+
     List<Widget> formList = [
       Container(
         padding:
@@ -80,6 +82,39 @@ class AddStock extends StatelessWidget {
           ],
         ),
       ),
+      Container(
+        padding: EdgeInsets.only(
+            top: Get.height * 0.05,
+            left: Get.width * 0.05,
+            right: Get.width * 0.05),
+        child: Row(
+          children: [
+            SizedBox(
+                width: Get.width * 0.3,
+                child: TextButton(
+                  onPressed: () {},
+                  child: const Text("Barcode"),
+                )),
+            // Expanded(
+            //   child: TextFormField(
+            //     onChanged: (value) {
+            //       mymap[2]!["value"] = value.toString();
+            //     },
+            //     validator: (value) {
+            //       if (value == null || value.isEmpty) {
+            //         return 'Please enter some text';
+            //       }
+            //       return null;
+            //     },
+            //     decoration: const InputDecoration(
+            //       border: OutlineInputBorder(),
+            //       labelText: 'Value',
+            //     ),
+            //   ),
+            // )
+          ],
+        ),
+      ),
       SizedBox(height: Get.height * 0.05),
       Container(
         padding: EdgeInsets.symmetric(horizontal: Get.width * 0.05),
@@ -103,7 +138,7 @@ class AddStock extends StatelessWidget {
               }
             },
             child: const Text("Submit")),
-      )
+      ),
     ].obs;
 
     Widget rowAdd(int x) {

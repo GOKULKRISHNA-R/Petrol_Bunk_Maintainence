@@ -21,21 +21,31 @@ class Stock extends StatelessWidget {
     getCount();
     return Scaffold(
         body: SafeArea(
-      child: Column(
+      child: ListView(
         children: [
           Container(
             padding: EdgeInsets.only(
                 top: Get.height * 0.01, bottom: Get.height * 0.01),
-            child: Text(
-              "List of products",
-              style: TextStyle(fontSize: 25),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Text(
+                  "List of products",
+                  style: TextStyle(fontSize: 25),
+                ),
+              ],
             ),
           ),
           SizedBox(
               height: Get.height * 0.05,
               width: Get.width * 0.9,
-              child: Obx(() =>
-                  Text("Number of products = ${count.value.toString()}"))),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Obx(() =>
+                      Text("Number of products = ${count.value.toString()}")),
+                ],
+              )),
           SizedBox(
             height: Get.height * 0.8,
             width: Get.width,
