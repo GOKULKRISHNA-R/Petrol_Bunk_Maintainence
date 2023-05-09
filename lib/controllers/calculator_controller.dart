@@ -10,4 +10,8 @@ class CalculatorController extends GetxController {
   TextEditingController Nozzle6Controller = TextEditingController();
   TextEditingController Nozzle7Controller = TextEditingController();
   TextEditingController Nozzle8Controller = TextEditingController();
+
+  TextEditingController todayDiesel = TextEditingController();
+  TextEditingController todayPetrol = TextEditingController();
+  TextEditingController todayOil = TextEditingController();
 }

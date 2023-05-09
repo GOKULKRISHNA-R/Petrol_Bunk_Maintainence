@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'add_stock.dart';
 import 'calculator.dart';
@@ -17,6 +20,10 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     PersistentTabController controller;
     controller = PersistentTabController(initialIndex: 0);
+    // // log(.toString()) ;
+    // var val = {} ;
+    // val = Get.arguments ?? {} ;
+    // log(val.toString());
     List<Widget> buildScreens() {
       return [Calculator(), Stock(), const AddStock()];
     }

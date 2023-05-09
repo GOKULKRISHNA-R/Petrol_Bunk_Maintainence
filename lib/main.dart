@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petrol_bunk_maintainence/controllers/splashscreen_controller.dart';
 import 'screens/authenticate/login/login.dart';
+import 'screens/home/calculator.dart';
 import 'screens/home/home_page.dart';
 
 Future main() async {
@@ -15,12 +16,13 @@ Future main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // final FingerprintController fingerprintController = Get.put(FingerprintController());
-
   @override
   Widget build(BuildContext context) {
-
     return GetMaterialApp(
+        initialRoute: '/',
+        getPages: [
+          GetPage(name: '/calci', page: () => HomePage())
+        ],
         debugShowCheckedModeBanner: false,
         title: 'Petrol Bunk Maintainence',
         theme: ThemeData(
@@ -32,7 +34,6 @@ class MyApp extends StatelessWidget {
 
 class Home extends StatelessWidget {
   const Home({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,8 @@ class Home extends StatelessWidget {
 class SplashScreen extends StatelessWidget {
   SplashScreen({super.key});
 
-  final SplashScreenController screenController = Get.put(SplashScreenController());
+  final SplashScreenController screenController =
+      Get.put(SplashScreenController());
 
   @override
   Widget build(BuildContext context) {

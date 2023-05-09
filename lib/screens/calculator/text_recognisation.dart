@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart';
 
 class RecognizePage extends StatefulWidget {
@@ -14,8 +15,8 @@ class RecognizePage extends StatefulWidget {
 class _RecognizePageState extends State<RecognizePage> {
   bool _isBusy = false;
 
-  TextEditingController controller = TextEditingController();
-
+  var scanval = {} ;
+  
   @override
   void initState() {
     super.initState();
@@ -35,12 +36,16 @@ class _RecognizePageState extends State<RecognizePage> {
               )
             : Container(
                 padding: const EdgeInsets.all(20),
-                child: TextFormField(
-                  maxLines: MediaQuery.of(context).size.height.toInt(),
-                  controller: controller,
-                  decoration:
-                      const InputDecoration(hintText: "Text goes here..."),
-                ),
+                child: Column(
+                  children: [
+                    Text("Nozzle : ${scanval.keys.first}"),
+                    Text("tot : ${scanval[scanval.keys.first]}"),
+                    Text("is it coorect ? if wrong re-scan"),
+                    ElevatedButton(onPressed: () {
+                      Get.offAllNamed('calci',arguments: scanval);
+                    }, child: Text("Yes, its correct"))
+                  ],
+                )
               ));
   }
 
@@ -55,11 +60,14 @@ class _RecognizePageState extends State<RecognizePage> {
     final RecognizedText recognizedText =
         await textRecognizer.processImage(image);
 
-    controller.text = recognizedText.text;
 
-    log(controller.text);
+    RegExp regExp = RegExp("No(z{0,2}2? ?le) No\.[ ]{0,1}:[ ]{0,1}[0-9]+", caseSensitive: false , multiLine: true );
+    RegExp regExp2 = RegExp("Vtot:[ ]{0,1}[0-9]*\.[ ]{0,1}[0-9]+", caseSensitive: false , multiLine: true );
+    
+    var a = regExp.allMatches(recognizedText.text).first[0]!.split(":")[1] ;
+    var b = regExp2.allMatches(recognizedText.text).first[0]!.split(":")[1] ;
+    scanval[a] = b ;
 
-    ///End busy state
     setState(() {
       _isBusy = false;
     });
