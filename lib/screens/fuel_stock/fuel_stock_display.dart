@@ -311,14 +311,15 @@ void _showAlertDialog(
               Color.fromARGB(255, 227, 80, 80), // background (button) color
           foregroundColor: Colors.white, // foreground (text) color
         ),
-        onPressed: () {
+        onPressed: () async {
           String petrol_s = fuelStockController.addPetrol.text;
           String diesel_s = fuelStockController.addDiesel.text;
           String oil_s = fuelStockController.addOil.text;
           int petrol = int.parse(petrol_s);
           int diesel = int.parse(diesel_s);
           int oil = int.parse(oil_s);
-          currentFuelStockDB.addFuelStock(petrol, diesel, oil);
+          await currentFuelStockDB.addFuelStock(petrol, diesel, oil);
+          
           Get.back();
         },
         child: Text("Update"),
