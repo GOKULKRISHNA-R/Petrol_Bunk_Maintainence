@@ -11,7 +11,7 @@ import 'package:petrol_bunk_maintainence/database/current_fuel_stock_db.dart';
 class FuelStockDisplay extends StatelessWidget {
   FuelStockDisplay({super.key});
 
-   Future<void> _signOut() async {
+  Future<void> _signOut() async {
     await FirebaseAuth.instance.signOut();
   }
 
@@ -22,9 +22,9 @@ class FuelStockDisplay extends StatelessWidget {
 
   getFuelData() async {
     x = await currentFuelStockDB.getDataFromDB();
-    fuelStockController.cDiesel.text = x['diesel'].toString() ;
-    fuelStockController.cPetrol.text = x['petrol'].toString() ;
-    fuelStockController.cOil.text = x['oil'].toString() ;
+    fuelStockController.cDiesel.text = x['diesel'].toString();
+    fuelStockController.cPetrol.text = x['petrol'].toString();
+    fuelStockController.cOil.text = x['oil'].toString();
   }
 
   @override
@@ -38,9 +38,9 @@ class FuelStockDisplay extends StatelessWidget {
           shadowColor: Colors.black,
           actions: [
             IconButton(
-        onPressed: _signOut,
-        icon: const Icon(Icons.logout),
-      ),
+              onPressed: _signOut,
+              icon: const Icon(Icons.logout),
+            ),
           ],
         ),
         body: SafeArea(
@@ -64,66 +64,65 @@ class FuelStockDisplay extends StatelessWidget {
             thickness: 1,
           ),
           Container(
-            child: Column(children: [
-              Container(
-              padding: EdgeInsets.all(Get.width * 0.08),
-            
               child: Column(
-                children: [
-                  TextField(
-                    controller: fuelStockController.cPetrol,
-                    decoration: InputDecoration(
+            children: [
+              Container(
+                padding: EdgeInsets.all(Get.width * 0.08),
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: fuelStockController.cPetrol,
+                      decoration: InputDecoration(
                         isDense: true,
                         contentPadding: EdgeInsets.symmetric(
                             horizontal: Get.width * 0.04,
                             vertical: Get.height * 0.01),
                         counterText: 'petrol balance',
                         // hintText: "Enter the todays petrol balance"
-                        ),
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  ),
-                  SizedBox(
-                    height: Get.height * 0.01,
-                  ),
-                  TextField(
-                    controller: fuelStockController.cDiesel,
-                    decoration: InputDecoration(
+                      ),
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    ),
+                    SizedBox(
+                      height: Get.height * 0.01,
+                    ),
+                    TextField(
+                      controller: fuelStockController.cDiesel,
+                      decoration: InputDecoration(
                         isDense: true,
                         contentPadding: EdgeInsets.symmetric(
                             horizontal: Get.width * 0.04,
                             vertical: Get.height * 0.01),
                         counterText: ' Diesel balance',
                         // hintText: "Enter the todays diesel balance"
-                        ),
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  ),
-                  SizedBox(
-                    height: Get.height * 0.01,
-                  ),
-                  TextField(
-                    controller: fuelStockController.cOil,
-                    decoration: InputDecoration(
+                      ),
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    ),
+                    SizedBox(
+                      height: Get.height * 0.01,
+                    ),
+                    TextField(
+                      controller: fuelStockController.cOil,
+                      decoration: InputDecoration(
                         isDense: true,
                         contentPadding: EdgeInsets.symmetric(
                             horizontal: Get.width * 0.04,
                             vertical: Get.height * 0.01),
                         counterText: 'oil balance',
                         // hintText: "Enter the todays oil balance"
-                        ),
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  ),
-                ],
+                      ),
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(
-              height: Get.height * 0.04,
-            ),
-                ],)
-          
-          ),
+              SizedBox(
+                height: Get.height * 0.04,
+              ),
+            ],
+          )),
           SizedBox(
             height: Get.height * 0.04,
           ),
@@ -142,7 +141,8 @@ class FuelStockDisplay extends StatelessWidget {
               foregroundColor: Colors.white, // foreground (text) color
             ),
             onPressed: () {
-              // int petrolCost =
+              _showAlertDialog(
+                  context, fuelStockController, currentFuelStockDB);
             },
             child: const Text('Update'),
           ),
@@ -150,71 +150,116 @@ class FuelStockDisplay extends StatelessWidget {
   }
 }
 
+void _showAlertDialog(
+    BuildContext context,
+    FuelStockController fuelStockController,
+    CurrentFuelStockDB currentFuelStockDB) {
+  AlertDialog alert = AlertDialog(
+    title: Text("Add stock"),
+    content: Container(
+      color: Color.fromARGB(255, 234, 224, 223),
+      height: Get.height * 0.4,
+      child: Column(
+        children: [
+          SizedBox(
+            height: Get.height * 0.04,
+          ),
+          // Text(
+          //   "Total petrol sold :",
+          //   textAlign: TextAlign.right,
+          // ),
+          TextField(
+            controller: fuelStockController.addPetrol,
+            decoration: InputDecoration(
+                isDense: true,
+                contentPadding: EdgeInsets.symmetric(
+                    horizontal: Get.width * 0.04, vertical: Get.height * 0.01),
+                counterText: 'Petrol',
+                hintText: "Add petrol to the stock"),
+            keyboardType: TextInputType.number,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          ),
+          SizedBox(
+            height: Get.height * 0.02,
+          ),
+          // Text(
+          //   "Total diesel sold (in rupees):",
+          //   textAlign: TextAlign.right,
+          // ),
+          TextField(
+            // controller: calculatorController.todayOil,
+            controller: fuelStockController.addDiesel,
+            decoration: InputDecoration(
+                isDense: true,
+                contentPadding: EdgeInsets.symmetric(
+                    horizontal: Get.width * 0.04, vertical: Get.height * 0.01),
+                counterText: 'stock',
+                hintText: "Add diesel to the stock"),
+            keyboardType: TextInputType.number,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          ),
+          SizedBox(
+            height: Get.height * 0.02,
+          ),
+          // Text(
+          //   "Total amount :",
+          //   textAlign: TextAlign.right,
+          // ),
+          TextField(
+            controller: fuelStockController.addOil,
+            decoration: InputDecoration(
+                isDense: true,
+                contentPadding: EdgeInsets.symmetric(
+                    horizontal: Get.width * 0.04, vertical: Get.height * 0.01),
+                counterText: 'oil',
+                hintText: "Add oil to the stock"),
+            keyboardType: TextInputType.number,
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          ),
+        ],
+      ),
+    ),
+    actions: [
+      ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor:
+              Color.fromARGB(255, 227, 80, 80), // background (button) color
+          foregroundColor: Colors.white, // foreground (text) color
+        ),
+        onPressed: () {
+          String petrol_s = fuelStockController.addPetrol.text;
+          String diesel_s = fuelStockController.addDiesel.text;
+          String oil_s = fuelStockController.addOil.text;
+          int petrol = int.parse(petrol_s);
+          int diesel = int.parse(diesel_s);
+          int oil = int.parse(oil_s);
+          currentFuelStockDB.addFuelStock(petrol, diesel, oil);
+          Get.back();
+        },
+        child: Text("Update"),
+      ),
+      ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor:
+              Color.fromARGB(255, 227, 80, 80), // background (button) color
+          foregroundColor: Colors.white, // foreground (text) color
+        ),
+        onPressed: () {
+          Get.back();
+        },
+        child: Text("Cancel"),
+      ),
+    ],
+  );
 
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
 
-  // Container(
-  //           padding: EdgeInsets.only(
-  //               top: Get.height * 0.01, bottom: Get.height * 0.01),
-  //           child: Row(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             children: [
-  //               Text(
-  //                 "Update products",
-  //                 style: TextStyle(fontSize: 25),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //         // Divider(
-  //         //   color: Colors.grey,
-  //         //   height: 1,
-  //         //   thickness: 1,
-  //         // ),
-  //         SizedBox(
-  //           height: Get.height * 0.05,
-  //         ),
-  //         TextField(
-  //           // controller: calculatorController.todayDiesel,
-  //           decoration: InputDecoration(
-  //               isDense: true,
-  //               contentPadding: EdgeInsets.symmetric(
-  //                   horizontal: Get.width * 0.03, vertical: Get.height * 0.01),
-  //               counterText: 'Petrol',
-  //               hintText: "Enter the amount of petrol added (in lit)"),
-  //           keyboardType: TextInputType.number,
-  //           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-  //         ),
-  //         SizedBox(
-  //           height: Get.height * 0.04,
-  //         ),
-  //         TextField(
-  //           // controller: calculatorController.todayDiesel,
-  //           decoration: InputDecoration(
-  //             isDense: true,
-  //             contentPadding: EdgeInsets.symmetric(
-  //                 horizontal: Get.width * 0.03, vertical: Get.height * 0.01),
-  //             counterText: 'Diesel',
-  //             hintText: "Enter the amount of diesel added (in lit)",
-  //           ),
-  //           keyboardType: TextInputType.number,
-  //           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-  //         ),
-  //         SizedBox(
-  //           height: Get.height * 0.04,
-  //         ),
-  //         TextField(
-  //           // controller: calculatorController.todayDiesel,
-  //           decoration: InputDecoration(
-  //               isDense: true,
-  //               contentPadding: EdgeInsets.symmetric(
-  //                   horizontal: Get.width * 0.03, vertical: Get.height * 0.01),
-  //               counterText: 'Oil',
-  //               hintText: "Enter the amount of oil added (in lit)"),
-  //           keyboardType: TextInputType.number,
-  //           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-  //         ),
-
-  //         ElevatedButton(
   //           style: ElevatedButton.styleFrom(
   //             backgroundColor:
   //                 Color.fromARGB(255, 154, 46, 46), // background (button) color
