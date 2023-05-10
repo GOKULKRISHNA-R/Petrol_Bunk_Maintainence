@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -378,8 +380,8 @@ class Calculator extends StatelessWidget {
                 foregroundColor: Colors.white, // foreground (text) color
               ),
               onPressed: () {
-                _showAlertDialog(context);
                 int diesel =
+                    // (y["noz1"]-int.parse(calculatorController.Nozzle1Controller.text)) +
                     int.parse(calculatorController.Nozzle1Controller.text) +
                         int.parse(calculatorController.Nozzle3Controller.text) +
                         int.parse(calculatorController.Nozzle5Controller.text) +
@@ -389,8 +391,12 @@ class Calculator extends StatelessWidget {
                         int.parse(calculatorController.Nozzle4Controller.text) +
                         int.parse(calculatorController.Nozzle6Controller.text) +
                         int.parse(calculatorController.Nozzle8Controller.text);
-
-                // int petrolCost =
+                int oil = int.parse(calculatorController.oil.text) ;
+                int dieselPrice =diesel *  int.parse(calculatorController.todayPetrol.text) ;
+                int petrolPrice =petrol * int.parse(calculatorController.todayDiesel.text) ;
+                int oilPrice =   oil * int.parse(calculatorController.todayOil.text) ;
+                _showAlertDialog(context, petrol , diesel , oil , petrolPrice , dieselPrice , oilPrice);
+                
               },
               child: const Text('Calculate'),
             ),
@@ -401,7 +407,9 @@ class Calculator extends StatelessWidget {
   }
 }
 
-void _showAlertDialog(BuildContext context) {
+void _showAlertDialog(BuildContext context , int petrol , int diesel , int oil ,int petrolPrice , int dieselPrice , int oilPrice) {
+    CurrentFuelStockDB currentFuelStockDB = CurrentFuelStockDB();
+
   AlertDialog alert = AlertDialog(
     title: Text("Calculated Amount"),
     content: Container(
@@ -413,49 +421,49 @@ void _showAlertDialog(BuildContext context) {
             height: Get.height * 0.04,
           ),
           Text(
-            "Total petrol sold :",
+            "Total petrol sold :$petrol",
             textAlign: TextAlign.right,
           ),
           SizedBox(
             height: Get.height * 0.02,
           ),
           Text(
-            "Total diesel sold :",
+            "Total diesel sold :$diesel",
             textAlign: TextAlign.right,
           ),
           SizedBox(
             height: Get.height * 0.02,
           ),
           Text(
-            "Total oil sold :",
+            "Total oil sold :$oil",
             textAlign: TextAlign.right,
           ),
           SizedBox(
             height: Get.height * 0.02,
           ),
           Text(
-            "Total petrol sold(in rupees) :",
+            "Total petrol sold(in rupees) : $petrolPrice",
             textAlign: TextAlign.right,
           ),
           SizedBox(
             height: Get.height * 0.02,
           ),
           Text(
-            "Total diesel sold(in rupees) :",
+            "Total diesel sold(in rupees) :$dieselPrice",
             textAlign: TextAlign.right,
           ),
           SizedBox(
             height: Get.height * 0.02,
           ),
           Text(
-            "Total diesel sold (in rupees):",
+            "Total oil sold (in rupees): $oilPrice",
             textAlign: TextAlign.right,
           ),
           SizedBox(
             height: Get.height * 0.02,
           ),
           Text(
-            "Total amount :",
+            "Total amount :${petrolPrice+dieselPrice+oilPrice}",
             textAlign: TextAlign.right,
           ),
         ],
@@ -469,7 +477,8 @@ void _showAlertDialog(BuildContext context) {
           foregroundColor: Colors.white, // foreground (text) color
         ),
         onPressed: () {
-          Navigator.pop(context);
+          currentFuelStockDB.updateFuelStock(petrol , diesel , oil);
+          Get.back();
         },
         child: Text("Update"),
       ),
