@@ -385,6 +385,7 @@ class Calculator extends StatelessWidget {
                 foregroundColor: Colors.white, // foreground (text) color
               ),
               onPressed: () {
+                _showAlertDialog(context);
                 int diesel =
                     int.parse(calculatorController.Nozzle1Controller.text) +
                         int.parse(calculatorController.Nozzle3Controller.text) +
@@ -405,4 +406,98 @@ class Calculator extends StatelessWidget {
       ),
     );
   }
+}
+
+void _showAlertDialog(BuildContext context) {
+  AlertDialog alert = AlertDialog(
+    title: Text("Calculated Amount"),
+    content: Container(
+      color: Color.fromARGB(255, 234, 224, 223),
+      height: Get.height * 0.4,
+      child: Column(
+        children: [
+          SizedBox(
+            height: Get.height * 0.04,
+          ),
+          Text(
+            "Total petrol sold :",
+            textAlign: TextAlign.right,
+          ),
+          SizedBox(
+            height: Get.height * 0.02,
+          ),
+          Text(
+            "Total diesel sold :",
+            textAlign: TextAlign.right,
+          ),
+          SizedBox(
+            height: Get.height * 0.02,
+          ),
+          Text(
+            "Total oil sold :",
+            textAlign: TextAlign.right,
+          ),
+          SizedBox(
+            height: Get.height * 0.02,
+          ),
+          Text(
+            "Total oil sold :",
+            textAlign: TextAlign.right,
+          ),
+          SizedBox(
+            height: Get.height * 0.02,
+          ),
+          Text(
+            "Total oil sold :",
+            textAlign: TextAlign.right,
+          ),
+          SizedBox(
+            height: Get.height * 0.02,
+          ),
+          Text(
+            "Total oil sold :",
+            textAlign: TextAlign.right,
+          ),
+          SizedBox(
+            height: Get.height * 0.02,
+          ),
+          Text(
+            "Total oil sold :",
+            textAlign: TextAlign.right,
+          ),
+        ],
+      ),
+    ),
+    actions: [
+      ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor:
+              Color.fromARGB(255, 227, 80, 80), // background (button) color
+          foregroundColor: Colors.white, // foreground (text) color
+        ),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: Text("Update"),
+      ),
+      ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor:
+              Color.fromARGB(255, 227, 80, 80), // background (button) color
+          foregroundColor: Colors.white, // foreground (text) color
+        ),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: Text("Cancel"),
+      ),
+    ],
+  );
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
