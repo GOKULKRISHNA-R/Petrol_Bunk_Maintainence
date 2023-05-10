@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:petrol_bunk_maintainence/screens/fuel_stock/fuel_stock_display.dart';
 import 'add_stock.dart';
 import 'calculator.dart';
 import 'stock.dart';
@@ -25,11 +26,17 @@ class HomePage extends StatelessWidget {
     // val = Get.arguments ?? {} ;
     // log(val.toString());
     List<Widget> buildScreens() {
-      return [Calculator(), Stock(), const AddStock()];
+      return [FuelStockDisplay(), Calculator(), Stock(), const AddStock()];
     }
 
     List<PersistentBottomNavBarItem> navBarsItems() {
       return [
+        PersistentBottomNavBarItem(
+          icon: const Icon(CupertinoIcons.equal_square_fill),
+          title: ("Fuel stock"),
+          activeColorPrimary: Color.fromARGB(255, 154, 45, 45),
+          inactiveColorPrimary: CupertinoColors.systemGrey,
+        ),
         PersistentBottomNavBarItem(
           icon: const Icon(CupertinoIcons.equal_square_fill),
           title: ("Calculator"),

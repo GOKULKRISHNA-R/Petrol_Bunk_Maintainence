@@ -480,7 +480,7 @@ void _showAlertDialog(BuildContext context) {
           foregroundColor: Colors.white, // foreground (text) color
         ),
         onPressed: () {
-          Navigator.pop(context);
+          Get.back();
         },
         child: Text("Cancel"),
       ),
