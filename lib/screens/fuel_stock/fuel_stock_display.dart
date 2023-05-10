@@ -5,15 +5,20 @@ import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
+import 'package:petrol_bunk_maintainence/controllers/calculator_controller.dart';
+import 'package:petrol_bunk_maintainence/controllers/fuel_stock_controller.dart';
 import 'package:petrol_bunk_maintainence/database/current_fuel_stock_db.dart';
 
 class FuelStockDisplay extends StatelessWidget {
   FuelStockDisplay({super.key});
+
   var x = {};
   var petrol;
   var diesel;
   var oil;
   CurrentFuelStockDB currentFuelStockDB = CurrentFuelStockDB();
+  var fuelStockController = Get.put(FuelStockController());
+
   getFuelData() async {
     x = await currentFuelStockDB.getDataFromDB();
     petrol = x["petrol"].toString();
@@ -105,7 +110,7 @@ class FuelStockDisplay extends StatelessWidget {
   }
 }
 
-void _showAlertDialog(BuildContext context) {
+void _showAlertDialog(BuildContext context , FuelStockController fuelStockController) {
   AlertDialog alert = AlertDialog(
     title: Text("Add stock"),
     content: Container(
@@ -121,7 +126,7 @@ void _showAlertDialog(BuildContext context) {
           //   textAlign: TextAlign.right,
           // ),
           TextField(
-            // controller: calculatorController.todayOil,
+            controller: fuelStockController.addPetrol,
             decoration: InputDecoration(
                 isDense: true,
                 contentPadding: EdgeInsets.symmetric(
@@ -140,6 +145,7 @@ void _showAlertDialog(BuildContext context) {
           // ),
           TextField(
             // controller: calculatorController.todayOil,
+            controller: fuelStockController.addDiesel,
             decoration: InputDecoration(
                 isDense: true,
                 contentPadding: EdgeInsets.symmetric(
@@ -157,7 +163,7 @@ void _showAlertDialog(BuildContext context) {
           //   textAlign: TextAlign.right,
           // ),
           TextField(
-            // controller: calculatorController.todayOil,
+            controller: fuelStockController.addOil,
             decoration: InputDecoration(
                 isDense: true,
                 contentPadding: EdgeInsets.symmetric(
