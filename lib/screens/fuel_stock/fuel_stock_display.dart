@@ -102,7 +102,8 @@ class FuelStockDisplay extends StatelessWidget {
             ),
             onPressed: () {
               // int petrolCost =
-              _showAlertDialog(context, fuelStockController);
+              _showAlertDialog(
+                  context, fuelStockController, currentFuelStockDB);
             },
             child: const Text('Update'),
           ),
@@ -111,7 +112,9 @@ class FuelStockDisplay extends StatelessWidget {
 }
 
 void _showAlertDialog(
-    BuildContext context, FuelStockController fuelStockController) {
+    BuildContext context,
+    FuelStockController fuelStockController,
+    CurrentFuelStockDB currentFuelStockDB) {
   AlertDialog alert = AlertDialog(
     title: Text("Add stock"),
     content: Container(
@@ -185,7 +188,14 @@ void _showAlertDialog(
           foregroundColor: Colors.white, // foreground (text) color
         ),
         onPressed: () {
-          Navigator.pop(context);
+          String petrol_s = fuelStockController.addPetrol.text;
+          String diesel_s = fuelStockController.addDiesel.text;
+          String oil_s = fuelStockController.addOil.text;
+          int petrol = int.parse(petrol_s);
+          int diesel = int.parse(diesel_s);
+          int oil = int.parse(oil_s);
+          currentFuelStockDB.addFuelStock(petrol, diesel, oil);
+          Get.back();
         },
         child: Text("Update"),
       ),
