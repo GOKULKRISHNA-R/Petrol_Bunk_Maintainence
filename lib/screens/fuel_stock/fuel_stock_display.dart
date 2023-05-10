@@ -172,36 +172,12 @@ class FuelStockDisplay extends StatelessWidget {
                     ),
                   ],
                 ),
-<<<<<<< Updated upstream
               ),
               SizedBox(
                 height: Get.height * 0.04,
               ),
             ],
           )),
-=======
-                Text(
-                  "Balance Petrol :${Globalval.pet}",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-                SizedBox(
-                  height: Get.height * 0.04,
-                ),
-                Text(
-                  "Balance Diesel : ${Globalval.die}",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-                SizedBox(
-                  height: Get.height * 0.04,
-                ),
-                Text(
-                  "Balance Oil : ${Globalval.oi}",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-              ],
-            ),
-          ),
->>>>>>> Stashed changes
           SizedBox(
             height: Get.height * 0.04,
           ),
