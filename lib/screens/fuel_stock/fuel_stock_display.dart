@@ -102,7 +102,7 @@ class FuelStockDisplay extends StatelessWidget {
             ),
             onPressed: () {
               // int petrolCost =
-              _showAlertDialog(context);
+              _showAlertDialog(context, fuelStockController);
             },
             child: const Text('Update'),
           ),
@@ -110,7 +110,8 @@ class FuelStockDisplay extends StatelessWidget {
   }
 }
 
-void _showAlertDialog(BuildContext context , FuelStockController fuelStockController) {
+void _showAlertDialog(
+    BuildContext context, FuelStockController fuelStockController) {
   AlertDialog alert = AlertDialog(
     title: Text("Add stock"),
     content: Container(
