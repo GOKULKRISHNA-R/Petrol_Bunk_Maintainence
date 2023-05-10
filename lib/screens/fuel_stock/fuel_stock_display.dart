@@ -4,6 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
+import 'package:petrol_bunk_maintainence/controllers/calculator_controller.dart';
+import 'package:petrol_bunk_maintainence/controllers/fuel_stock_controller.dart';
+import 'package:petrol_bunk_maintainence/database/current_fuel_stock_db.dart';
 
 class FuelStockDisplay extends StatelessWidget {
   FuelStockDisplay({super.key});
@@ -12,8 +15,21 @@ class FuelStockDisplay extends StatelessWidget {
     await FirebaseAuth.instance.signOut();
   }
 
+  var x = {};
+
+  CurrentFuelStockDB currentFuelStockDB = CurrentFuelStockDB();
+  var fuelStockController = Get.put(FuelStockController());
+
+  getFuelData() async {
+    x = await currentFuelStockDB.getDataFromDB();
+    fuelStockController.cDiesel.text = x['diesel'].toString() ;
+    fuelStockController.cPetrol.text = x['petrol'].toString() ;
+    fuelStockController.cOil.text = x['oil'].toString() ;
+  }
+
   @override
   Widget build(BuildContext context) {
+    getFuelData();
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 154, 45, 45),
@@ -48,31 +64,65 @@ class FuelStockDisplay extends StatelessWidget {
             thickness: 1,
           ),
           Container(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: Get.height * 0.04,
-                ),
-                Text(
-                  "Balance Petrol",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-                SizedBox(
-                  height: Get.height * 0.04,
-                ),
-                Text(
-                  "Balance Diesel",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-                SizedBox(
-                  height: Get.height * 0.04,
-                ),
-                Text(
-                  "Balance Oil",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-              ],
+            child: Column(children: [
+              Container(
+              padding: EdgeInsets.all(Get.width * 0.08),
+            
+              child: Column(
+                children: [
+                  TextField(
+                    controller: fuelStockController.cPetrol,
+                    decoration: InputDecoration(
+                        isDense: true,
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: Get.width * 0.04,
+                            vertical: Get.height * 0.01),
+                        counterText: 'petrol balance',
+                        // hintText: "Enter the todays petrol balance"
+                        ),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  ),
+                  SizedBox(
+                    height: Get.height * 0.01,
+                  ),
+                  TextField(
+                    controller: fuelStockController.cDiesel,
+                    decoration: InputDecoration(
+                        isDense: true,
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: Get.width * 0.04,
+                            vertical: Get.height * 0.01),
+                        counterText: ' Diesel balance',
+                        // hintText: "Enter the todays diesel balance"
+                        ),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  ),
+                  SizedBox(
+                    height: Get.height * 0.01,
+                  ),
+                  TextField(
+                    controller: fuelStockController.cOil,
+                    decoration: InputDecoration(
+                        isDense: true,
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: Get.width * 0.04,
+                            vertical: Get.height * 0.01),
+                        counterText: 'oil balance',
+                        // hintText: "Enter the todays oil balance"
+                        ),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  ),
+                ],
+              ),
             ),
+            SizedBox(
+              height: Get.height * 0.04,
+            ),
+                ],)
+          
           ),
           SizedBox(
             height: Get.height * 0.04,

@@ -6,4 +6,8 @@ class FuelStockController extends GetxController {
   TextEditingController addDiesel = TextEditingController();
   TextEditingController addPetrol = TextEditingController();
   TextEditingController addOil = TextEditingController();
+
+  TextEditingController cDiesel = TextEditingController();
+  TextEditingController cPetrol = TextEditingController();
+  TextEditingController cOil = TextEditingController();
 }
