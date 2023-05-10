@@ -382,21 +382,38 @@ class Calculator extends StatelessWidget {
               onPressed: () {
                 int diesel =
                     // (y["noz1"]-int.parse(calculatorController.Nozzle1Controller.text)) +
-                    int.parse(calculatorController.Nozzle1Controller.text) +
-                        int.parse(calculatorController.Nozzle3Controller.text) +
-                        int.parse(calculatorController.Nozzle5Controller.text) +
-                        int.parse(calculatorController.Nozzle7Controller.text);
-                int petrol =
-                    int.parse(calculatorController.Nozzle2Controller.text) +
-                        int.parse(calculatorController.Nozzle4Controller.text) +
-                        int.parse(calculatorController.Nozzle6Controller.text) +
-                        int.parse(calculatorController.Nozzle8Controller.text);
-                int oil = int.parse(calculatorController.oil.text) ;
-                int dieselPrice =diesel *  int.parse(calculatorController.todayPetrol.text) ;
-                int petrolPrice =petrol * int.parse(calculatorController.todayDiesel.text) ;
-                int oilPrice =   oil * int.parse(calculatorController.todayOil.text) ;
-                _showAlertDialog(context, petrol , diesel , oil , petrolPrice , dieselPrice , oilPrice);
-                
+                    (-y["nozzle1"] +
+                            int.parse(
+                                calculatorController.Nozzle1Controller.text)) +
+                        (-y["nozzle3"] +
+                            int.parse(
+                                calculatorController.Nozzle3Controller.text)) +
+                        (-y["nozzle5"] +
+                            int.parse(
+                                calculatorController.Nozzle5Controller.text)) +
+                        (-y["nozzle7"] +
+                            int.parse(
+                                calculatorController.Nozzle7Controller.text));
+                int petrol = ((-y["nozzle2"] +
+                        int.parse(
+                            calculatorController.Nozzle2Controller.text)) +
+                    (int.parse(calculatorController.Nozzle4Controller.text) -
+                        y["nozzle4"]) +
+                    (int.parse(calculatorController.Nozzle6Controller.text) -
+                        y["nozzle6"]) +
+                    (int.parse(calculatorController.Nozzle8Controller.text) -
+                        y["nozzle8"]));
+                log(petrol.toString());
+                int oil =
+                    (-y["oil"] + int.parse(calculatorController.oil.text));
+                int dieselPrice =
+                    diesel * int.parse(calculatorController.todayPetrol.text);
+                int petrolPrice =
+                    petrol * int.parse(calculatorController.todayDiesel.text);
+                int oilPrice =
+                    oil * int.parse(calculatorController.todayOil.text);
+                _showAlertDialog(context, petrol, diesel, oil, petrolPrice,
+                    dieselPrice, oilPrice, calculatorController);
               },
               child: const Text('Calculate'),
             ),
@@ -407,9 +424,17 @@ class Calculator extends StatelessWidget {
   }
 }
 
-void _showAlertDialog(BuildContext context , int petrol , int diesel , int oil ,int petrolPrice , int dieselPrice , int oilPrice) {
-    CurrentFuelStockDB currentFuelStockDB = CurrentFuelStockDB();
-
+void _showAlertDialog(
+    BuildContext context,
+    int petrol,
+    int diesel,
+    int oil,
+    int petrolPrice,
+    int dieselPrice,
+    int oilPrice,
+    CalculatorController calculatorController) {
+  CurrentFuelStockDB currentFuelStockDB = CurrentFuelStockDB();
+  CurrentNozzleReadingDB currentNozzleReadingDB = CurrentNozzleReadingDB();
   AlertDialog alert = AlertDialog(
     title: Text("Calculated Amount"),
     content: Container(
@@ -463,7 +488,7 @@ void _showAlertDialog(BuildContext context , int petrol , int diesel , int oil ,
             height: Get.height * 0.02,
           ),
           Text(
-            "Total amount :${petrolPrice+dieselPrice+oilPrice}",
+            "Total amount :${petrolPrice + dieselPrice + oilPrice}",
             textAlign: TextAlign.right,
           ),
         ],
@@ -477,7 +502,20 @@ void _showAlertDialog(BuildContext context , int petrol , int diesel , int oil ,
           foregroundColor: Colors.white, // foreground (text) color
         ),
         onPressed: () {
-          currentFuelStockDB.updateFuelStock(petrol , diesel , oil);
+          currentFuelStockDB.updateFuelStock(petrol, diesel, oil);
+          int Nozzle1 = int.parse(calculatorController.Nozzle1Controller.text);
+          int Nozzle2 = int.parse(calculatorController.Nozzle2Controller.text);
+          int Nozzle3 = int.parse(calculatorController.Nozzle3Controller.text);
+          int Nozzle4 = int.parse(calculatorController.Nozzle4Controller.text);
+          int Nozzle5 = int.parse(calculatorController.Nozzle5Controller.text);
+          int Nozzle6 = int.parse(calculatorController.Nozzle6Controller.text);
+          int Nozzle7 = int.parse(calculatorController.Nozzle7Controller.text);
+          int Nozzle8 = int.parse(calculatorController.Nozzle8Controller.text);
+          int Oil = int.parse(calculatorController.oil.text);
+          // int Nozzle1 = int.parse(calculatorController.Nozzle1Controller.text);
+
+          currentNozzleReadingDB.addFuelStock(Nozzle1, Nozzle2, Nozzle3,
+              Nozzle4, Nozzle5, Nozzle6, Nozzle7, Nozzle8, Oil);
           Get.back();
         },
         child: Text("Update"),
