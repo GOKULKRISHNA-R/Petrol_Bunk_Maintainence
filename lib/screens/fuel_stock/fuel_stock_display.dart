@@ -74,6 +74,17 @@ class FuelStockDisplay extends StatelessWidget {
           SizedBox(
             height: Get.height * 0.04,
           ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor:
+                  Color.fromARGB(255, 154, 46, 46), // background (button) color
+              foregroundColor: Colors.white, // foreground (text) color
+            ),
+            onPressed: () {
+              // int petrolCost =
+            },
+            child: const Text('Update'),
+          ),
         ])));
   }
 }
