@@ -38,7 +38,9 @@ class LoginScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     TextFormField(
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(
+                        color: Colors.greenAccent,
+                      ),
                       controller: emailController,
                       enableSuggestions: false,
                       autocorrect: false,
@@ -60,7 +62,7 @@ class LoginScreen extends StatelessWidget {
                       height: Get.height * 0.02,
                     ),
                     TextFormField(
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.greenAccent),
                       controller: passwordController,
                       obscureText: true,
                       enableSuggestions: false,

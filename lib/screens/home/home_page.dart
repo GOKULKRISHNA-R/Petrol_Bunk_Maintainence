@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
     List<PersistentBottomNavBarItem> navBarsItems() {
       return [
         PersistentBottomNavBarItem(
-          icon: const Icon(CupertinoIcons.equal_square_fill),
+          icon: const Icon(CupertinoIcons.collections_solid),
           title: ("Fuel stock"),
           activeColorPrimary: Color.fromARGB(255, 154, 45, 45),
           inactiveColorPrimary: CupertinoColors.systemGrey,

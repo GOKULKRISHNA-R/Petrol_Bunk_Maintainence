@@ -44,6 +44,7 @@ class Calculator extends StatelessWidget {
   Widget build(BuildContext context) {
     getDataFromAPI();
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 236, 211, 209),
       appBar: AppBar(
         actions: [
             IconButton(
@@ -445,6 +446,7 @@ void _showAlertDialog(
     CalculatorController calculatorController) {
   CurrentFuelStockDB currentFuelStockDB = CurrentFuelStockDB();
   CurrentNozzleReadingDB currentNozzleReadingDB = CurrentNozzleReadingDB();
+  TodayPriceDB todayPriceDB = TodayPriceDB();
   AlertDialog alert = AlertDialog(
     title: Text("Calculated Amount"),
     content: Container(
@@ -522,8 +524,12 @@ void _showAlertDialog(
           int Nozzle7 = int.parse(calculatorController.Nozzle7Controller.text);
           int Nozzle8 = int.parse(calculatorController.Nozzle8Controller.text);
           int Oil = int.parse(calculatorController.oil.text);
-          // int Nozzle1 = int.parse(calculatorController.Nozzle1Controller.text);
+          int petrolPrice = int.parse(calculatorController.todayPetrol.text);
+          int dieselPrice = int.parse(calculatorController.todayDiesel.text);
+          int oilPrice = int.parse(calculatorController.todayOil.text);
 
+          // int Nozzle1 = int.parse(calculatorController.Nozzle1Controller.text);
+          todayPriceDB.updateFuelPrice(petrolPrice, dieselPrice, oilPrice);
           currentNozzleReadingDB.addFuelStock(Nozzle1, Nozzle2, Nozzle3,
               Nozzle4, Nozzle5, Nozzle6, Nozzle7, Nozzle8, Oil);
           Get.back();

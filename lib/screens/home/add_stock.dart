@@ -93,7 +93,7 @@ class AddStock extends StatelessWidget {
                 width: Get.width * 0.3,
                 child: TextButton(
                   onPressed: () {},
-                  child: const Text("Barcode"),
+                  child: const Text(""),
                 )),
             // Expanded(
             //   child: TextFormField(
@@ -135,6 +135,7 @@ class AddStock extends StatelessWidget {
 
                 var response = StockDB().putInDB(formdata);
                 log(response.toString());
+                Get.back();
               }
             },
             child: const Text("Submit")),
@@ -183,6 +184,13 @@ class AddStock extends StatelessWidget {
     }
 
     return Scaffold(
+        backgroundColor: Color.fromARGB(255, 236, 211, 209),
+        appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 154, 45, 45),
+          title: Text("Add the products"),
+          centerTitle: true,
+          shadowColor: Colors.black,
+        ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton(
             child: const Icon(Icons.add),

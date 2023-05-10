@@ -9,4 +9,13 @@ class TodayPriceDB {
       var x = await db.doc("VFn16suseaxD613OOg18").get();
       return x.data();
     }
+
+    updateFuelPrice(int petrolprice, int dieselprice, int oilprice) async {
+   
+    await db.doc("VFn16suseaxD613OOg18").set({
+      "petrol": petrolprice,
+      "diesel": dieselprice,
+      "oil": oilprice,
+    });
+  }
 }

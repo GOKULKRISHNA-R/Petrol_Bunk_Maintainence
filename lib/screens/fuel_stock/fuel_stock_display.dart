@@ -8,6 +8,12 @@ import 'package:petrol_bunk_maintainence/controllers/calculator_controller.dart'
 import 'package:petrol_bunk_maintainence/controllers/fuel_stock_controller.dart';
 import 'package:petrol_bunk_maintainence/database/current_fuel_stock_db.dart';
 
+class Globalval {
+  static var pet = "3160";
+  static var die = "799";
+  static var oi = "146";
+}
+
 class FuelStockDisplay extends StatelessWidget {
   FuelStockDisplay({super.key});
 
@@ -22,15 +28,70 @@ class FuelStockDisplay extends StatelessWidget {
 
   getFuelData() async {
     x = await currentFuelStockDB.getDataFromDB();
+<<<<<<< Updated upstream
     fuelStockController.cDiesel.text = x['diesel'].toString();
     fuelStockController.cPetrol.text = x['petrol'].toString();
     fuelStockController.cOil.text = x['oil'].toString();
+=======
+    Globalval.pet = x["petrol"].toString();
+    Globalval.die = x["diesel"].toString();
+    Globalval.oi = x["oil"].toString();
+    if (int.parse(Globalval.pet) <= 500) {
+      Get.dialog(AlertDialog(
+        title: Text("Update the product"),
+        content: Text(
+            'The stock of petrol is low (only ${Globalval.pet} remaining)'),
+        actions: [
+          TextButton(
+            child: Text('OK'),
+            onPressed: () {
+              // do something here
+              Get.back();
+            },
+          ),
+        ],
+      ));
+    }
+    if (int.parse(Globalval.die) <= 500) {
+      Get.dialog(AlertDialog(
+        title: Text("Update the product"),
+        content: Text(
+            'The stock of diesel is low (only ${Globalval.die} remaining)'),
+        actions: [
+          TextButton(
+            child: Text('OK'),
+            onPressed: () {
+              // do something here
+              Get.back();
+            },
+          ),
+        ],
+      ));
+    }
+    if (int.parse(Globalval.oi) <= 100) {
+      Get.dialog(AlertDialog(
+        title: Text("Update the product"),
+        content:
+            Text('The stock of oil is low (only ${Globalval.oi} remaining)'),
+        actions: [
+          TextButton(
+            child: Text('OK'),
+            onPressed: () {
+              // do something here
+              Get.back();
+            },
+          ),
+        ],
+      ));
+    }
+>>>>>>> Stashed changes
   }
 
   @override
   Widget build(BuildContext context) {
     getFuelData();
     return Scaffold(
+        backgroundColor: Color.fromARGB(255, 236, 211, 209),
         appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 154, 45, 45),
           title: Text("Total fuel display"),
@@ -117,12 +178,36 @@ class FuelStockDisplay extends StatelessWidget {
                     ),
                   ],
                 ),
+<<<<<<< Updated upstream
               ),
               SizedBox(
                 height: Get.height * 0.04,
               ),
             ],
           )),
+=======
+                Text(
+                  "Balance Petrol :${Globalval.pet}",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                SizedBox(
+                  height: Get.height * 0.04,
+                ),
+                Text(
+                  "Balance Diesel : ${Globalval.die}",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+                SizedBox(
+                  height: Get.height * 0.04,
+                ),
+                Text(
+                  "Balance Oil : ${Globalval.oi}",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                ),
+              ],
+            ),
+          ),
+>>>>>>> Stashed changes
           SizedBox(
             height: Get.height * 0.04,
           ),
