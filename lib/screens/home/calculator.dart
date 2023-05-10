@@ -1,30 +1,24 @@
-import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:petrol_bunk_maintainence/controllers/calculator_controller.dart';
 import 'package:petrol_bunk_maintainence/database/today_price_db.dart';
-import 'package:petrol_bunk_maintainence/features/authentication/models/model_dialouge.dart';
-import 'package:petrol_bunk_maintainence/screens/calculator/text_recognisation.dart';
-import 'package:petrol_bunk_maintainence/utils/components/image_cropper_page.dart';
-import 'package:petrol_bunk_maintainence/utils/components/image_picker_class.dart';
 
 import '../../database/current_fuel_stock_db.dart';
+import '../../database/current_nozzle_reading_db.dart';
 
 class Calculator extends StatelessWidget {
   Calculator({super.key});
 
-  CurrentFuelStockDB currentFuelStockDB = CurrentFuelStockDB();
+  TodayPriceDB todayPriceDB = TodayPriceDB();
   CurrentNozzleReadingDB currentNozzleReadingDB = CurrentNozzleReadingDB();
   var calculatorController = Get.put(CalculatorController());
   var x = {};
   var y = {};
 
   getDataFromAPI() async {
-    x = await currentFuelStockDB.getDataFromDB();
+    x = await todayPriceDB.getDataFromDB();
     y = await currentNozzleReadingDB.getDataFromPump();
     // log(x.toString());
     calculatorController.todayDiesel.text = x["diesel"].toString();
