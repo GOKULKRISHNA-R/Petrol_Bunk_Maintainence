@@ -28,11 +28,6 @@ class FuelStockDisplay extends StatelessWidget {
 
   getFuelData() async {
     x = await currentFuelStockDB.getDataFromDB();
-<<<<<<< Updated upstream
-    fuelStockController.cDiesel.text = x['diesel'].toString();
-    fuelStockController.cPetrol.text = x['petrol'].toString();
-    fuelStockController.cOil.text = x['oil'].toString();
-=======
     Globalval.pet = x["petrol"].toString();
     Globalval.die = x["diesel"].toString();
     Globalval.oi = x["oil"].toString();
@@ -84,7 +79,6 @@ class FuelStockDisplay extends StatelessWidget {
         ],
       ));
     }
->>>>>>> Stashed changes
   }
 
   @override
