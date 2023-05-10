@@ -33,19 +33,19 @@ class HomePage extends StatelessWidget {
         PersistentBottomNavBarItem(
           icon: const Icon(CupertinoIcons.equal_square_fill),
           title: ("Calculator"),
-          activeColorPrimary: CupertinoColors.activeBlue,
+          activeColorPrimary: Color.fromARGB(255, 154, 45, 45),
           inactiveColorPrimary: CupertinoColors.systemGrey,
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(CupertinoIcons.collections_solid),
           title: ("Stock"),
-          activeColorPrimary: CupertinoColors.activeBlue,
+          activeColorPrimary: Color.fromARGB(255, 154, 45, 45),
           inactiveColorPrimary: CupertinoColors.systemGrey,
         ),
         PersistentBottomNavBarItem(
           icon: const Icon(CupertinoIcons.add_circled),
           title: ("Add Stock"),
-          activeColorPrimary: CupertinoColors.activeBlue,
+          activeColorPrimary: Color.fromARGB(255, 154, 45, 45),
           inactiveColorPrimary: CupertinoColors.systemGrey,
         ),
       ];
