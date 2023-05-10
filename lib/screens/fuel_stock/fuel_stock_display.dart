@@ -1,40 +1,31 @@
-import 'dart:developer';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
-import 'package:petrol_bunk_maintainence/controllers/calculator_controller.dart';
-import 'package:petrol_bunk_maintainence/controllers/fuel_stock_controller.dart';
-import 'package:petrol_bunk_maintainence/database/current_fuel_stock_db.dart';
 
 class FuelStockDisplay extends StatelessWidget {
   FuelStockDisplay({super.key});
 
-  var x = {};
-  var petrol;
-  var diesel;
-  var oil;
-  CurrentFuelStockDB currentFuelStockDB = CurrentFuelStockDB();
-  var fuelStockController = Get.put(FuelStockController());
-
-  getFuelData() async {
-    x = await currentFuelStockDB.getDataFromDB();
-    petrol = x["petrol"].toString();
-    diesel = x["diesel"].toString();
-    oil = x["oil"].toString();
+   Future<void> _signOut() async {
+    await FirebaseAuth.instance.signOut();
   }
 
   @override
   Widget build(BuildContext context) {
-    getFuelData();
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 154, 45, 45),
           title: Text("Total fuel display"),
           centerTitle: true,
           shadowColor: Colors.black,
+          actions: [
+            IconButton(
+        onPressed: _signOut,
+        icon: const Icon(Icons.logout),
+      ),
+          ],
         ),
         body: SafeArea(
             child: ListView(children: [
@@ -63,21 +54,21 @@ class FuelStockDisplay extends StatelessWidget {
                   height: Get.height * 0.04,
                 ),
                 Text(
-                  "Balance Petrol :${petrol}",
+                  "Balance Petrol",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 SizedBox(
                   height: Get.height * 0.04,
                 ),
                 Text(
-                  "Balance Diesel : ${diesel}",
+                  "Balance Diesel",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 SizedBox(
                   height: Get.height * 0.04,
                 ),
                 Text(
-                  "Balance Oil : ${oil}",
+                  "Balance Oil",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
               ],
@@ -102,126 +93,12 @@ class FuelStockDisplay extends StatelessWidget {
             ),
             onPressed: () {
               // int petrolCost =
-              _showAlertDialog(
-                  context, fuelStockController, currentFuelStockDB);
             },
             child: const Text('Update'),
           ),
         ])));
   }
 }
-
-void _showAlertDialog(
-    BuildContext context,
-    FuelStockController fuelStockController,
-    CurrentFuelStockDB currentFuelStockDB) {
-  AlertDialog alert = AlertDialog(
-    title: Text("Add stock"),
-    content: Container(
-      color: Color.fromARGB(255, 234, 224, 223),
-      height: Get.height * 0.4,
-      child: Column(
-        children: [
-          SizedBox(
-            height: Get.height * 0.04,
-          ),
-          // Text(
-          //   "Total petrol sold :",
-          //   textAlign: TextAlign.right,
-          // ),
-          TextField(
-            controller: fuelStockController.addPetrol,
-            decoration: InputDecoration(
-                isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                    horizontal: Get.width * 0.04, vertical: Get.height * 0.01),
-                counterText: 'Petrol',
-                hintText: "Add petrol to the stock"),
-            keyboardType: TextInputType.number,
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          ),
-          SizedBox(
-            height: Get.height * 0.02,
-          ),
-          // Text(
-          //   "Total diesel sold (in rupees):",
-          //   textAlign: TextAlign.right,
-          // ),
-          TextField(
-            // controller: calculatorController.todayOil,
-            controller: fuelStockController.addDiesel,
-            decoration: InputDecoration(
-                isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                    horizontal: Get.width * 0.04, vertical: Get.height * 0.01),
-                counterText: 'stock',
-                hintText: "Add diesel to the stock"),
-            keyboardType: TextInputType.number,
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          ),
-          SizedBox(
-            height: Get.height * 0.02,
-          ),
-          // Text(
-          //   "Total amount :",
-          //   textAlign: TextAlign.right,
-          // ),
-          TextField(
-            controller: fuelStockController.addOil,
-            decoration: InputDecoration(
-                isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                    horizontal: Get.width * 0.04, vertical: Get.height * 0.01),
-                counterText: 'oil',
-                hintText: "Add oil to the stock"),
-            keyboardType: TextInputType.number,
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          ),
-        ],
-      ),
-    ),
-    actions: [
-      ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor:
-              Color.fromARGB(255, 227, 80, 80), // background (button) color
-          foregroundColor: Colors.white, // foreground (text) color
-        ),
-        onPressed: () {
-          String petrol_s = fuelStockController.addPetrol.text;
-          String diesel_s = fuelStockController.addDiesel.text;
-          String oil_s = fuelStockController.addOil.text;
-          int petrol = int.parse(petrol_s);
-          int diesel = int.parse(diesel_s);
-          int oil = int.parse(oil_s);
-          currentFuelStockDB.addFuelStock(petrol, diesel, oil);
-          Get.back();
-        },
-        child: Text("Update"),
-      ),
-      ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor:
-              Color.fromARGB(255, 227, 80, 80), // background (button) color
-          foregroundColor: Colors.white, // foreground (text) color
-        ),
-        onPressed: () {
-          Get.back();
-        },
-        child: Text("Cancel"),
-      ),
-    ],
-  );
-
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return alert;
-    },
-  );
-}
-
-
 
 
 

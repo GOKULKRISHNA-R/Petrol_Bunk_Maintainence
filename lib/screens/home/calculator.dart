@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -35,12 +36,21 @@ class Calculator extends StatelessWidget {
     calculatorController.Nozzle8Controller.text = y["nozzle8"].toString();
     calculatorController.oil.text = y["oil"].toString();
   }
+   Future<void> _signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
     getDataFromAPI();
     return Scaffold(
       appBar: AppBar(
+        actions: [
+            IconButton(
+        onPressed: _signOut,
+        icon: const Icon(Icons.logout),
+      ),
+          ],
         backgroundColor: Color.fromARGB(255, 154, 45, 45),
         title: Text("Amount Calculator"),
         centerTitle: true,

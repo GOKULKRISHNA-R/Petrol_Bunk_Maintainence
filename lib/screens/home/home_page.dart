@@ -13,9 +13,6 @@ import 'stock.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  Future<void> _signOut() async {
-    await FirebaseAuth.instance.signOut();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,10 +56,6 @@ class HomePage extends StatelessWidget {
     }
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: _signOut,
-        child: const Icon(Icons.logout),
-      ),
       body: PersistentTabView(
         context,
         controller: controller,
