@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -435,28 +434,28 @@ void _showAlertDialog(BuildContext context) {
             height: Get.height * 0.02,
           ),
           Text(
-            "Total oil sold :",
+            "Total petrol sold(in rupees) :",
             textAlign: TextAlign.right,
           ),
           SizedBox(
             height: Get.height * 0.02,
           ),
           Text(
-            "Total oil sold :",
+            "Total diesel sold(in rupees) :",
             textAlign: TextAlign.right,
           ),
           SizedBox(
             height: Get.height * 0.02,
           ),
           Text(
-            "Total oil sold :",
+            "Total diesel sold (in rupees):",
             textAlign: TextAlign.right,
           ),
           SizedBox(
             height: Get.height * 0.02,
           ),
           Text(
-            "Total oil sold :",
+            "Total amount :",
             textAlign: TextAlign.right,
           ),
         ],
