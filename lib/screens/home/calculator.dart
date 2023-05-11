@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:petrol_bunk_maintainence/controllers/calculator_controller.dart';
+import 'package:petrol_bunk_maintainence/database/daily_fuel_register.dart';
 import 'package:petrol_bunk_maintainence/database/today_price_db.dart';
 
 import '../../database/current_fuel_stock_db.dart';
@@ -36,7 +37,8 @@ class Calculator extends StatelessWidget {
     calculatorController.Nozzle8Controller.text = y["nozzle8"].toString();
     calculatorController.oil.text = y["oil"].toString();
   }
-   Future<void> _signOut() async {
+
+  Future<void> _signOut() async {
     await FirebaseAuth.instance.signOut();
   }
 
@@ -47,11 +49,11 @@ class Calculator extends StatelessWidget {
       backgroundColor: Color.fromARGB(255, 236, 211, 209),
       appBar: AppBar(
         actions: [
-            IconButton(
-        onPressed: _signOut,
-        icon: const Icon(Icons.logout),
-      ),
-          ],
+          IconButton(
+            onPressed: _signOut,
+            icon: const Icon(Icons.logout),
+          ),
+        ],
         backgroundColor: Color.fromARGB(255, 154, 45, 45),
         title: Text("Amount Calculator"),
         centerTitle: true,
@@ -446,6 +448,7 @@ void _showAlertDialog(
     CalculatorController calculatorController) {
   CurrentFuelStockDB currentFuelStockDB = CurrentFuelStockDB();
   CurrentNozzleReadingDB currentNozzleReadingDB = CurrentNozzleReadingDB();
+  DailyFuelRegsiter dailyFuelRegsiter = DailyFuelRegsiter();
   TodayPriceDB todayPriceDB = TodayPriceDB();
   AlertDialog alert = AlertDialog(
     title: Text("Calculated Amount"),
@@ -524,14 +527,21 @@ void _showAlertDialog(
           int Nozzle7 = int.parse(calculatorController.Nozzle7Controller.text);
           int Nozzle8 = int.parse(calculatorController.Nozzle8Controller.text);
           int Oil = int.parse(calculatorController.oil.text);
-          int petrolPrice = int.parse(calculatorController.todayPetrol.text);
-          int dieselPrice = int.parse(calculatorController.todayDiesel.text);
-          int oilPrice = int.parse(calculatorController.todayOil.text);
-
+          int todayPetrol = int.parse(calculatorController.todayPetrol.text);
+          int todayDiesel = int.parse(calculatorController.todayDiesel.text);
+          int todayOil = int.parse(calculatorController.todayOil.text);
+          int total = petrolPrice + dieselPrice + oilPrice;
+          int petrol_quantity = Nozzle2 + Nozzle4 + Nozzle6 + Nozzle8;
+          int diesel_quantity = Nozzle3 + Nozzle5 + Nozzle1 + Nozzle7;
+          int oil_quantity = Oil;
           // int Nozzle1 = int.parse(calculatorController.Nozzle1Controller.text);
-          todayPriceDB.updateFuelPrice(petrolPrice, dieselPrice, oilPrice);
+          todayPriceDB.updateFuelPrice(todayPetrol, todayDiesel, todayOil);
           currentNozzleReadingDB.addFuelStock(Nozzle1, Nozzle2, Nozzle3,
               Nozzle4, Nozzle5, Nozzle6, Nozzle7, Nozzle8, Oil);
+
+          dailyFuelRegsiter.addFuelD(dieselPrice, diesel, total, oilPrice, oil,
+              petrolPrice, petrol, todayPetrol, todayDiesel, todayOil);
+
           Get.back();
         },
         child: Text("Update"),
@@ -543,6 +553,7 @@ void _showAlertDialog(
           foregroundColor: Colors.white, // foreground (text) color
         ),
         onPressed: () {
+          // dailyFuelRegsiter.getFuelFuelDB();
           Get.back();
         },
         child: Text("Cancel"),

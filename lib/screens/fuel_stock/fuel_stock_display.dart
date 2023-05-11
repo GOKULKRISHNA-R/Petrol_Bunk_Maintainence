@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:petrol_bunk_maintainence/controllers/calculator_controller.dart';
 import 'package:petrol_bunk_maintainence/controllers/fuel_stock_controller.dart';
 import 'package:petrol_bunk_maintainence/database/current_fuel_stock_db.dart';
+import 'package:petrol_bunk_maintainence/database/daily_fuel_register.dart';
 
 class Globalval {
   static var pet = "3160";
@@ -24,13 +25,19 @@ class FuelStockDisplay extends StatelessWidget {
   var x = {};
 
   CurrentFuelStockDB currentFuelStockDB = CurrentFuelStockDB();
+  DailyFuelRegsiter dailyFuelRegsiter = DailyFuelRegsiter();
   var fuelStockController = Get.put(FuelStockController());
-
+  var y = {};
+  var z = {};
   getFuelData() async {
     x = await currentFuelStockDB.getDataFromDB();
-    Globalval.pet = x["petrol"].toString();
-    Globalval.die = x["diesel"].toString();
-    Globalval.oi = x["oil"].toString();
+    y = await dailyFuelRegsiter.getFuelDB();
+    z = await dailyFuelRegsiter.getTodaySales();
+    fuelStockController.yesterdaysales.text = y["grand_total"].toString();
+    fuelStockController.todaysales.text = z["grand_total"].toString();
+    fuelStockController.cPetrol.text = x["petrol"].toString();
+    fuelStockController.cDiesel.text = x["diesel"].toString();
+    fuelStockController.cOil.text = x["oil"].toString();
     if (int.parse(Globalval.pet) <= 500) {
       Get.dialog(AlertDialog(
         title: Text("Update the product"),
@@ -170,38 +177,40 @@ class FuelStockDisplay extends StatelessWidget {
                       keyboardType: TextInputType.number,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     ),
+                    TextField(
+                      controller: fuelStockController.yesterdaysales,
+                      decoration: InputDecoration(
+                        isDense: true,
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: Get.width * 0.04,
+                            vertical: Get.height * 0.01),
+                        counterText: "Yesterday's sales",
+                        // hintText: "Enter the todays oil balance"
+                      ),
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    ),
+                    TextField(
+                      controller: fuelStockController.todaysales,
+                      decoration: InputDecoration(
+                        isDense: true,
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: Get.width * 0.04,
+                            vertical: Get.height * 0.01),
+                        counterText: "Today's sales",
+                        // hintText: "Enter the todays oil balance"
+                      ),
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    ),
                   ],
                 ),
-<<<<<<< Updated upstream
               ),
               SizedBox(
                 height: Get.height * 0.04,
               ),
             ],
           )),
-=======
-                Text(
-                  "Balance Petrol :${Globalval.pet}",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-                SizedBox(
-                  height: Get.height * 0.04,
-                ),
-                Text(
-                  "Balance Diesel : ${Globalval.die}",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-                SizedBox(
-                  height: Get.height * 0.04,
-                ),
-                Text(
-                  "Balance Oil : ${Globalval.oi}",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-              ],
-            ),
-          ),
->>>>>>> Stashed changes
           SizedBox(
             height: Get.height * 0.04,
           ),
@@ -313,7 +322,6 @@ void _showAlertDialog(
           int diesel = int.parse(diesel_s);
           int oil = int.parse(oil_s);
           await currentFuelStockDB.addFuelStock(petrol, diesel, oil);
-          
           Get.back();
         },
         child: Text("Update"),

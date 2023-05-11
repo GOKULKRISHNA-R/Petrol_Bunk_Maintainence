@@ -1,11 +1,15 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:petrol_bunk_maintainence/database/stock_bd.dart';
 
 class AddStock extends StatelessWidget {
   const AddStock({super.key});
+  Future<void> _signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -186,6 +190,12 @@ class AddStock extends StatelessWidget {
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 236, 211, 209),
         appBar: AppBar(
+          actions: [
+            IconButton(
+              onPressed: _signOut,
+              icon: const Icon(Icons.logout),
+            ),
+          ],
           backgroundColor: Color.fromARGB(255, 154, 45, 45),
           title: Text("Add the products"),
           centerTitle: true,
