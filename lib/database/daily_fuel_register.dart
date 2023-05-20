@@ -4,13 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DailyFuelRegsiter {
   final db = FirebaseFirestore.instance.collection("daily_fuel_register");
-  getAllDoc() async{
+  getAllDoc() async {
     // QuerySnapshot querySnapshot = await db.get();
     // List<DocumentSnapshot> documentSnapshots = querySnapshot.docs;
     Stream<QuerySnapshot> stream = db.snapshots();
     // return documentSnapshots;
     return stream;
   }
+
 // get the previous date sales
   getFuelDB() async {
     DateTime now = DateTime.now();
@@ -20,7 +21,7 @@ class DailyFuelRegsiter {
     return x.data();
   }
 
-   getTodaySales() async {
+  getTodaySales() async {
     DateTime now = DateTime.now();
     String date = now.toString().substring(0, 10);
     var x = await db.doc(date).get();
